@@ -9,6 +9,7 @@
 #import "SIAlertView.h"
 #import "UIWindow+SIUtils.h"
 #import <QuartzCore/QuartzCore.h>
+#import "UIImage+ImageEffects.h"
 
 NSString *const SIAlertViewWillShowNotification = @"SIAlertViewWillShowNotification";
 NSString *const SIAlertViewDidShowNotification = @"SIAlertViewDidShowNotification";
@@ -79,6 +80,7 @@ static SIAlertView *__si_alert_current_view;
 
 @property (nonatomic, assign) SIAlertViewBackgroundStyle style;
 
+@property (nonatomic) UIWindow *oldKeyWindow;
 @end
 
 @implementation SIAlertBackgroundWindow
@@ -119,6 +121,18 @@ static SIAlertView *__si_alert_current_view;
             [[UIColor colorWithWhite:0 alpha:0.5] set];
             CGContextFillRect(context, self.bounds);
             break;
+        }
+        case SIAlertViewBackgroundStyleBlur:
+        {
+            UIGraphicsBeginImageContextWithOptions(self.bounds.size, YES, 0);
+            UIGraphicsBeginImageContext(self.oldKeyWindow.bounds.size);
+            [self.oldKeyWindow.layer renderInContext:UIGraphicsGetCurrentContext()];
+            UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+            
+            UIImage *blurImage = [image applyBlurWithRadius:16.0f tintColor:[UIColor colorWithWhite:0.4 alpha:0.7] saturationDeltaFactor:0.5 maskImage:nil];
+            
+            CGContextDrawImage(context, self.bounds, blurImage.CGImage);
         }
     }
 }
