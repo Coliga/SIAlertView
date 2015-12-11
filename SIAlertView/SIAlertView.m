@@ -93,6 +93,7 @@ static SIAlertView *__si_alert_current_view;
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.opaque = NO;
         self.windowLevel = UIWindowLevelSIAlertBackground;
+        self.oldKeyWindow = [[UIApplication sharedApplication] keyWindow];
     }
     return self;
 }
