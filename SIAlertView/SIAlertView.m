@@ -1030,21 +1030,18 @@ static SIAlertView *__si_alert_current_view;
     UIImage *highlightedImage = nil;
     switch (item.type) {
         case SIAlertViewButtonTypeCancel:
-            normalImage = [UIImage imageNamed:@"SIAlertView.bundle/button-cancel"];
-            highlightedImage = [UIImage imageNamed:@"SIAlertView.bundle/button-cancel-d"];
+            [button setBackgroundColor:[UIColor lightGrayColor]];
             [button setTitleColor:self.cancelButtonColor forState:UIControlStateNormal];
             [button setTitleColor:[self.cancelButtonColor colorWithAlphaComponent:0.8] forState:UIControlStateHighlighted];
             break;
         case SIAlertViewButtonTypeDestructive:
-            normalImage = [UIImage imageNamed:@"SIAlertView.bundle/button-destructive"];
-            highlightedImage = [UIImage imageNamed:@"SIAlertView.bundle/button-destructive-d"];
+            [button setBackgroundColor:[UIColor redColor]];
             [button setTitleColor:self.destructiveButtonColor forState:UIControlStateNormal];
             [button setTitleColor:[self.destructiveButtonColor colorWithAlphaComponent:0.8] forState:UIControlStateHighlighted];
             break;
         case SIAlertViewButtonTypeDefault:
         default:
-            normalImage = [UIImage imageNamed:@"SIAlertView.bundle/button-default"];
-            highlightedImage = [UIImage imageNamed:@"SIAlertView.bundle/button-default-d"];
+            [button setBackgroundColor:[UIColor lightGrayColor]];
             [button setTitleColor:self.buttonColor forState:UIControlStateNormal];
             [button setTitleColor:[self.buttonColor colorWithAlphaComponent:0.8] forState:UIControlStateHighlighted];
             break;
